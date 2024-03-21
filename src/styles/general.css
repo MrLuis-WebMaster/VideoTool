@@ -1,0 +1,8 @@
+a {
+    text-decoration: none;
+}
+
+::selection {
+  color: white;
+  background: #4a00ff;
+}
