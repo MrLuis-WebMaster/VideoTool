@@ -77,7 +77,7 @@ interface EnhancedTableProps {
     rowCount: number;
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+const EnhancedTableHead = (props: EnhancedTableProps) => {
     const { onSelectAllClick, numSelected, rowCount } =
         props;
     return (
@@ -106,7 +106,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     );
 }
 
-const Tablesize = () => {
+const TableVideos = () => {
     const [selected, setSelected] = useState<readonly number[]>([]);
 
 
@@ -143,8 +143,6 @@ const Tablesize = () => {
     return (
         <TableContainer>
             <Table
-                sx={{ minWidth: 750 }}
-                aria-labelledby="tableTitle"
                 size={'medium'}
             >
                 <EnhancedTableHead
@@ -198,4 +196,4 @@ const Tablesize = () => {
     );
 }
 
-export default Tablesize
+export default TableVideos

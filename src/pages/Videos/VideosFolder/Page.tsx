@@ -13,9 +13,9 @@ const PageVideosFolder = () => {
           component={RouterLink}
           to="/videos"
           size="large" color="primary" variant="contained" 
-          sx={{ height: '2.7rem', width: '2.7rem', padding: '1rem', minWidth: 'auto'}}
+          sx={{ width: '2.7rem', minWidth: 'auto'}}
         >
-          <ArrowBackIcon />
+          <ArrowBackIcon sx={{ }} />
         </Button>
         <Breadcrumbs aria-label="breadcrumb" separator={'/'} sx={{ fontSize: '1.3rem' }}>
           <Link underline="hover" color="black" to="/videos" component={RouterLink}>

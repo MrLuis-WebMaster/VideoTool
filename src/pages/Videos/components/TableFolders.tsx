@@ -10,7 +10,6 @@ import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 
-
 interface Data {
     id: number;
     name: string;
@@ -78,7 +77,7 @@ interface EnhancedTableProps {
     rowCount: number;
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+const EnhancedTableHead = (props: EnhancedTableProps) => {
     const { onSelectAllClick, numSelected, rowCount } =
         props;
     return (
@@ -110,7 +109,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 const TableFolders = () => {
     const [selected, setSelected] = useState<readonly number[]>([]);
     const navigate = useNavigate()
-
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
@@ -149,8 +147,6 @@ const TableFolders = () => {
     return (
         <TableContainer>
             <Table
-                sx={{ minWidth: 750 }}
-                aria-labelledby="tableTitle"
                 size={'medium'}                
             >
                 <EnhancedTableHead
@@ -162,7 +158,6 @@ const TableFolders = () => {
                     {rows.map((row, index) => {
                         const isItemSelected = isSelected(row.id);
                         const labelId = `enhanced-table-checkbox-${index}`;
-
                         return (
                             <TableRow
                                 hover

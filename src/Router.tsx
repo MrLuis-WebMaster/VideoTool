@@ -42,6 +42,10 @@ const router = createBrowserRouter([
                 path: 'configurations',
                 element: <PageBlank />,
             },
+            {
+                path: 'help',
+                element: <PageBlank />,
+            },
         ]
     },
 ]);
