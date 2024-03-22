@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 
 const LayoutVideoPage = () => {
   return (
-      <Box sx={{ padding: '0 40px' }}>
+      <Box sx={{ padding: '0 2.5rem' }}>
         <Outlet/>
       </Box>
   )

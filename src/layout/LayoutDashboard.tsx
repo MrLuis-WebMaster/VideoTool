@@ -6,9 +6,9 @@ import { Outlet } from 'react-router-dom';
 
 const LayoutDashboard = () => {
   return (
-    <Box sx={{ padding: 3, minHeight: '100vh', display: 'flex', gap: 2 }}>
-        <Sidebar/>
-        <Paper sx={{ flexGrow: 1}} elevation={0} component="main">
+    <Box sx={{ padding: 3, height: '100vh', display: 'flex', gap: 2, overflow:'hidden' }}>
+        <Sidebar />
+        <Paper sx={{ flexGrow: 1, overflowY: 'auto'}} elevation={0} component="main">
           <Outlet/>
         </Paper>
     </Box>

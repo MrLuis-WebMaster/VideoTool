@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import DeleteIcon from '@mui/icons-material/Delete';
+import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/material';
 
 
 interface Data {
@@ -87,8 +81,6 @@ interface EnhancedTableProps {
 function EnhancedTableHead(props: EnhancedTableProps) {
     const { onSelectAllClick, numSelected, rowCount } =
         props;
-
-
     return (
         <TableHead>
             <TableRow>
@@ -98,13 +90,16 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                         indeterminate={numSelected > 0 && numSelected < rowCount}
                         checked={rowCount > 0 && numSelected === rowCount}
                         onChange={onSelectAllClick}
+                        size='small'
+                        sx={{ color: 'rgba(0,0,0, .2)' }}
                     />
                 </TableCell>
                 {headCells.map((headCell) => (
-                    <TableCell key={headCell.id}>
-                        <TableSortLabel>
-                            {headCell.label}
-                        </TableSortLabel>
+                    <TableCell key={headCell.id}
+                        {...{ align: headCell.id === 'name' ? 'left':  'right'}}
+                        sx={{ fontWeight: 'bold'}}
+                    >
+                        {headCell.label}
                     </TableCell>
                 ))}
             </TableRow>
@@ -112,40 +107,6 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     );
 }
 
-function EnhancedTableToolbar(props: { numSelected: number }) {
-    const { numSelected } = props;
-
-    return (
-        <Toolbar
-            sx={{
-                pl: { sm: 2 },
-                pr: { xs: 1, sm: 1 },
-                ...(numSelected > 0 && {
-                    bgcolor: (theme) =>
-                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-                }),
-            }}
-        >
-            {numSelected > 0 ? (
-                <Typography
-                    sx={{ flex: '1 1 100%' }}
-                    color="inherit"
-                    variant="subtitle1"
-                    component="div"
-                >
-                    {numSelected} selected
-                </Typography>
-            ) : null}
-            {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton>
-                        <DeleteIcon />
-                    </IconButton>
-                </Tooltip>
-            ) : null}
-        </Toolbar>
-    );
-}
 const TableFolders = () => {
     const [selected, setSelected] = useState<readonly number[]>([]);
     const navigate = useNavigate()
@@ -186,60 +147,61 @@ const TableFolders = () => {
     }
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <EnhancedTableToolbar numSelected={selected.length} />
-            <TableContainer>
-                <Table
-                    sx={{ minWidth: 750 }}
-                    aria-labelledby="tableTitle"
-                    size={'medium'}
-                >
-                    <EnhancedTableHead
-                        numSelected={selected.length}
-                        onSelectAllClick={handleSelectAllClick}
-                        rowCount={rows.length}
-                    />
-                    <TableBody>
-                        {rows.map((row, index) => {
-                            const isItemSelected = isSelected(row.id);
-                            const labelId = `enhanced-table-checkbox-${index}`;
+        <TableContainer>
+            <Table
+                sx={{ minWidth: 750 }}
+                aria-labelledby="tableTitle"
+                size={'medium'}                
+            >
+                <EnhancedTableHead
+                    numSelected={selected.length}
+                    onSelectAllClick={handleSelectAllClick}
+                    rowCount={rows.length}
+                />
+                <TableBody>
+                    {rows.map((row, index) => {
+                        const isItemSelected = isSelected(row.id);
+                        const labelId = `enhanced-table-checkbox-${index}`;
 
-                            return (
-                                <TableRow
-                                    hover
-                                    role="checkbox"
-                                    aria-checked={isItemSelected}
-                                    tabIndex={-1}
-                                    key={row.id}
-                                    selected={isItemSelected}
-                                    sx={{ cursor: 'pointer' }}
-                                    onClick={() => handleNavigateFolder(row.name)}
+                        return (
+                            <TableRow
+                                hover
+                                role="checkbox"
+                                aria-checked={isItemSelected}
+                                key={row.id}
+                                selected={isItemSelected}
+                                sx={{ cursor: 'pointer' }}
+                                onClick={() => handleNavigateFolder(row.name)}
+                            >
+                                <TableCell padding="checkbox">
+                                    <Checkbox
+                                        onClick={(event) => handleClick(event, row.id)}
+                                        color="primary"
+                                        checked={isItemSelected}
+                                        size='small'
+                                        sx={{ color: 'rgba(0,0,0, .2)' }}
+                                    />
+                                </TableCell>
+                                <TableCell
+                                    component="th"
+                                    id={labelId}
+                                    scope="row"
+                                    padding="none"
                                 >
-                                    <TableCell padding="checkbox">
-                                        <Checkbox
-                                            onClick={(event) => handleClick(event, row.id)}
-                                            color="primary"
-                                            checked={isItemSelected}
-                                        />
-                                    </TableCell>
-                                    <TableCell
-                                        component="th"
-                                        id={labelId}
-                                        scope="row"
-                                        padding="none"
-                                    >
+                                    <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem'}}>
+                                        <FolderOutlinedIcon color='primary'/>
                                         {row.name}
-                                    </TableCell>
-                                    <TableCell align="right">{row.videos}</TableCell>
-                                    <TableCell align="right">{row.size} GB</TableCell>
-                                    <TableCell align="right">{row.lastUpdated}</TableCell>
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Box>
+                                    </Box>
+                                </TableCell>
+                                <TableCell align="right">{row.videos}</TableCell>
+                                <TableCell align="right">{row.size} GB</TableCell>
+                                <TableCell align="right">{row.lastUpdated}</TableCell>
+                            </TableRow>
+                        );
+                    })}
+                </TableBody>
+            </Table>
+        </TableContainer>
     );
 }
 

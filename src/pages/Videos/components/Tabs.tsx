@@ -28,9 +28,9 @@ const TabComponent = () => {
     });
 
     const TabsCustoms = styled(Tabs)({
-        minHeight: '30px',
+        minHeight: '1.875rem',
         "& .MuiTabs-indicator" : {
-            height: '4px'
+            height: '0.25'
         },
         "& .MuiTabs-flexContainer" : {
             gap: 20

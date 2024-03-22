@@ -7,22 +7,22 @@ import TableFolders from "./components/TableFolders";
 
 const PageVideo = () => {
   const TextFieldCustom = styled(TextField)({
-    height: '45px',
+    height: '2.813rem',
     width: '45%',
-    marginBottom: 32,
+    marginBottom: '3.5rem',
     ['& .MuiInputBase-root']: {
       height: '100%'
     },
     ['& .MuiInputAdornment-root']: {
       height: '100%',
       borderRight: '1px solid #c4c4c4',
-      paddingRight: '8px',
-      marginRight: '15px',
+      paddingRight: '0.5rem',
+      marginRight: '0.938rem',
     },
   });
   return (
     <>
-      <Box sx={{ display:'flex', alignItems: 'center', marginBottom: 8 }}>
+      <Box sx={{ display:'flex', alignItems: 'center', marginBottom: 4 }}>
         <TabComponent/>
         <Box sx={{ display: 'flex', gap: '15px' }}>
           <Button variant="contained" color="secondary" startIcon={<FolderOutlinedIcon />}>
